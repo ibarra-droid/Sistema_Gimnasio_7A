@@ -1,4 +1,4 @@
-# Pulse Gym — sistema de gestión
+# OKTUBRE — sistema de gestión
 
 Panel de gestión de gimnasio hecho con HTML, CSS y JavaScript, con una API PHP y base MySQL/MariaDB.
 

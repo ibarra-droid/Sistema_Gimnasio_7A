@@ -19,7 +19,7 @@ body {
   color: var(--tinta);
   background: var(--fondo);
   font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 button,
@@ -1249,8 +1249,8 @@ footer span {
 .panel-registros .tabla-vacia { padding: 42px 12px; color: #9699a8; text-align: center; }
 
 .dialogo-registro {
-  width: min(620px, calc(100% - 28px));
-  max-width: 620px;
+  width: min(720px, calc(100% - 28px));
+  max-width: 720px;
   max-height: min(85vh, 760px);
   padding: 0;
   border: 0;
@@ -1264,10 +1264,17 @@ footer span {
 .dialogo-encabezado { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 19px; }
 .dialogo-encabezado h2 { margin: 0; font: 800 18px Manrope, sans-serif; }
 .dialogo-cerrar { width: 32px; height: 32px; border: 0; border-radius: 8px; color: #777b90; background: #f4f4fa; font-size: 22px; }
-.formulario-registro { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.formulario-registro label { display: grid; gap: 7px; color: #65697c; font-size: 10px; font-weight: 600; }
+.formulario-registro { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.formulario-registro label { display: grid; gap: 8px; color: #65697c; font-size: 14px; font-weight: 600; }
+.formulario-registro .campo-completo { grid-column: 1 / -1; }
+.campo-obligatorio { display: inline; margin-left: 3px; color: #d94b55; font-size: 10px; font-weight: 800; }
+.campo-autocompletar { position: relative; }
+.opciones-socio { position: absolute; z-index: 5; top: calc(100% - 1px); left: 0; right: 0; max-height: 180px; overflow-y: auto; border: 1px solid #e5e6ef; border-radius: 7px; background: #fff; box-shadow: 0 8px 20px #25233b1a; }
+.opciones-socio[hidden] { display: none; }
+.opciones-socio button { display: block; width: 100%; padding: 10px 12px; border: 0; border-bottom: 1px solid #f0f0f5; color: #34364b; background: #fff; text-align: left; font: 14px 'DM Sans', sans-serif; cursor: pointer; }
+.opciones-socio button:hover { background: #f6f4ff; }
 .formulario-registro input,
-.formulario-registro select { width: 100%; min-width: 0; height: 39px; padding: 0 10px; border: 1px solid #e5e6ef; border-radius: 7px; outline: 0; color: #34364b; background: #fff; font: 11px 'DM Sans', sans-serif; }
+.formulario-registro select { width: 100%; min-width: 0; height: 46px; padding: 0 12px; border: 1px solid #e5e6ef; border-radius: 7px; outline: 0; color: #34364b; background: #fff; font: 14px 'DM Sans', sans-serif; }
 .formulario-registro input:focus,
 .formulario-registro select:focus { border-color: #9b8cf0; box-shadow: 0 0 0 3px #7157e81a; }
 .dialogo-acciones { display: flex; justify-content: flex-end; gap: 9px; margin-top: 22px; }
@@ -1275,10 +1282,51 @@ footer span {
 .aviso-toast { position: fixed; right: 22px; bottom: 22px; z-index: 10; max-width: min(400px, calc(100% - 30px)); padding: 13px 16px; border-radius: 9px; color: #fff; background: #293249; box-shadow: 0 8px 28px #17172b35; font-size: 12px; }
 .aviso-toast.error { background: #a5434c; }
 
+/* Tipografía más cómoda en pantalla normal, con énfasis en listas y formularios. */
+.item-nav { font-size: 13px; }
+.etiqueta-nav { font-size: 10px; }
+.miga-de-pan { font-size: 12px; }
+.estado { font-size: 12px; }
+.subtitulo-superior { font-size: 10px; }
+h1 { font-size: 29px; }
+.subtitulo { font-size: 14px; }
+.boton-principal { font-size: 13px; }
+.estadistica-superior { font-size: 13px; }
+.pie-estadistica { font-size: 11px; }
+.leyenda-estadistica { font-size: 11px; }
+.encabezado-panel h2 { font-size: 16px; }
+.encabezado-panel p { font-size: 12px; }
+.encabezado-panel > a { font-size: 12px; }
+.panel-actividad th { font-size: 10px; }
+.panel-actividad td { font-size: 12px; }
+.persona strong { font-size: 12px; }
+.persona small { font-size: 11px; }
+.insignia { font-size: 11px; }
+.info-renovacion strong { font-size: 13px; }
+.info-renovacion small, .dias-restantes { font-size: 11px; }
+.acciones-rapidas a { font-size: 13px; }
+.acciones-rapidas small { font-size: 11px; }
+.leyenda { font-size: 12px; }
+.panel-registros td { font-size: 14px; }
+.panel-registros th { font-size: 11px; }
+.panel-registros .buscador input { font-size: 14px; }
+.acciones-registros { font-size: 12px; }
+.boton-secundario, .accion-editar, .accion-eliminar { font-size: 12px; }
+.dialogo-encabezado h2 { font-size: 21px; }
+.dialogo-cerrar { width: 38px; height: 38px; }
+.dialogo-acciones .boton-principal, .dialogo-acciones .boton-secundario { min-height: 44px; }
+.aviso-toast { font-size: 14px; }
+
 @media (max-width: 700px) {
   .barra-registros { align-items: stretch; flex-direction: column; }
   .buscador { min-width: 100%; }
   .acciones-registros { flex-wrap: wrap; justify-content: flex-start; }
   .dialogo-caja { padding: 19px 16px; }
   .formulario-registro { grid-template-columns: 1fr; }
+  .formulario-registro .campo-completo { grid-column: auto; }
+  h1 { font-size: 25px; }
+}
+
+@media (max-width: 950px) {
+  .item-nav, .item-nav.activo { font-size: 0; }
 }
