@@ -1267,6 +1267,20 @@ footer span {
 .formulario-registro { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .formulario-registro label { display: grid; gap: 8px; color: #65697c; font-size: 14px; font-weight: 600; }
 .formulario-registro .campo-completo { grid-column: 1 / -1; }
+.busqueda-socio-control { display: flex; gap: 8px; }
+.busqueda-socio-control input { flex: 1; }
+.busqueda-socio-control .boton-secundario { flex: 0 0 auto; }
+.socio-encontrado { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 11px 13px; border: 1px solid #d9eadf; border-radius: 7px; color: #475b4d; background: #f4fbf6; font-size: 13px; }
+.socio-encontrado strong { color: #303c34; }
+.socio-encontrado small { flex-basis: 100%; color: #63816c; }
+.membresia-encontrada { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 7px; padding: 11px 13px; border: 1px solid #e5e6ef; border-radius: 7px; color: #65697c; background: #f8f8fc; font-size: 13px; }
+.membresia-encontrada strong { color: #34364b; }
+.membresia-encontrada small { flex-basis: 100%; }
+.resultados-socio { display: grid; gap: 6px; margin-top: 8px; }
+.resultados-socio p { margin: 0; color: #65697c; font-size: 13px; }
+.resultados-socio button { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid #e5e6ef; border-radius: 7px; color: #34364b; background: #fff; text-align: left; cursor: pointer; }
+.resultados-socio button:hover { border-color: #9b8cf0; background: #f8f7ff; }
+.resultados-socio .socio-inactivo { color: #a5434c; }
 .campo-obligatorio { display: inline; margin-left: 3px; color: #d94b55; font-size: 10px; font-weight: 800; }
 .campo-autocompletar { position: relative; }
 .opciones-socio { position: absolute; z-index: 5; top: calc(100% - 1px); left: 0; right: 0; max-height: 180px; overflow-y: auto; border: 1px solid #e5e6ef; border-radius: 7px; background: #fff; box-shadow: 0 8px 20px #25233b1a; }

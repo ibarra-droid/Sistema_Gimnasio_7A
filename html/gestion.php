@@ -1,6 +1,6 @@
 <?php
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-$version = '20261028-2';
+$version = '20261120-8';
 $secciones = [
   'socios' => ['Socios', 'Administrá los datos y el estado de tus socios.', 'clientes'],
   'membresias' => ['Membresías', 'Consultá planes contratados, vigencia y vencimientos.', 'contrataciones'],

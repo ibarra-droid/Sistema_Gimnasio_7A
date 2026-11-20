@@ -64,6 +64,21 @@ try {
     if ($method === 'POST') {
         $data = array_intersect_key($body, array_flip($columns));
         if (!$data) respond(400, ['ok' => false, 'error' => 'No se recibieron campos válidos.']);
+        if ($entity === 'pagos' && (!isset($data['monto']) || !is_numeric($data['monto']) || (float)$data['monto'] <= 0)) {
+            $error = isset($data['monto']) && is_numeric($data['monto']) && (float)$data['monto'] === 0.0
+                ? 'El monto no puede ser 0.'
+                : 'El monto debe ser mayor que 0.';
+            respond(422, ['ok' => false, 'error' => $error]);
+        }
+        if ($entity === 'contrataciones') {
+            $clientId = filter_var($data['cliente_id'] ?? null, FILTER_VALIDATE_INT);
+            $clientQuery = $pdo->prepare('SELECT estado FROM clientes WHERE id_cliente = :id');
+            $clientQuery->execute(['id' => $clientId ?: 0]);
+            $clientStatus = $clientQuery->fetchColumn();
+            if (strtolower((string)$clientStatus) !== 'activo') {
+                respond(422, ['ok' => false, 'error' => 'Solo se pueden crear membresías para socios activos.']);
+            }
+        }
         $fields = array_keys($data);
         $sql = 'INSERT INTO `' . $entity . '` (`' . implode('`,`', $fields) . '`) VALUES (:' . implode(',:', $fields) . ')';
         $stmt = $pdo->prepare($sql); $stmt->execute($data);
@@ -73,6 +88,12 @@ try {
         $id = filter_var($body['id'] ?? null, FILTER_VALIDATE_INT);
         $data = array_intersect_key($body, array_flip($columns));
         if (!$id || !$data) respond(400, ['ok' => false, 'error' => 'Se requiere id y al menos un campo válido.']);
+        if ($entity === 'pagos' && array_key_exists('monto', $data) && (!is_numeric($data['monto']) || (float)$data['monto'] <= 0)) {
+            $error = is_numeric($data['monto']) && (float)$data['monto'] === 0.0
+                ? 'El monto no puede ser 0.'
+                : 'El monto debe ser mayor que 0.';
+            respond(422, ['ok' => false, 'error' => $error]);
+        }
         $sets = array_map(static fn($field) => '`' . $field . '` = :' . $field, array_keys($data));
         $data['__id'] = $id;
         $stmt = $pdo->prepare('UPDATE `' . $entity . '` SET ' . implode(',', $sets) . ' WHERE `' . $pk . '` = :__id');
