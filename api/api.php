@@ -5,6 +5,7 @@ require_once __DIR__ . '/config.php';
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
+// Devuelve siempre respuestas JSON con el código HTTP correspondiente.
 function respond(int $status, array $payload): never
 {
     http_response_code($status);
@@ -37,6 +38,7 @@ try {
         respond(200, ['ok' => true, 'data' => ['summary' => $summary, 'recent' => $recent, 'renewals' => $renewals, 'trend' => $trend]]);
     }
 
+    // Lista permitida de entidades y columnas editables para evitar SQL dinámico arbitrario.
     $tables = [
         'clientes' => ['id_cliente', ['nombre','apellido','dni','telefono','domicilio_nro','domicilio_calle','correo','fecha_alta','estado']],
         'empleados' => ['id_empleado', ['nombre','apellido','dni','telefono','domicilio_nro','domicilio_calle','correo']],
@@ -50,6 +52,7 @@ try {
     if (!isset($tables[$entity])) respond(404, ['ok' => false, 'error' => 'Entidad inexistente.']);
     [$pk, $columns] = $tables[$entity];
     $method = $_SERVER['REQUEST_METHOD'];
+    // Las rutas CRUD comparten validación y consultas preparadas.
     if ($method === 'GET') {
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $sql = 'SELECT * FROM `' . $entity . '`' . ($id ? ' WHERE `' . $pk . '` = :id' : '') . ' ORDER BY `' . $pk . '` DESC';
@@ -109,6 +112,7 @@ try {
     }
     header('Allow: GET, POST, PUT, DELETE');
     respond(405, ['ok' => false, 'error' => 'Método no permitido.']);
+// Los detalles técnicos van al log; al navegador solo se envía un mensaje seguro.
 } catch (PDOException $e) {
     error_log($e->getMessage());
     respond(500, ['ok' => false, 'error' => 'Error de base de datos. Revisá la conexión y los datos enviados.']);

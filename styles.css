@@ -241,17 +241,17 @@ nav {
   justify-content: space-between;
 }
 
-.miga-de-pan {
+.breadcrumb {
   color: #9295a6;
   font-size: 11px;
 }
 
-.miga-de-pan span {
+.breadcrumb span {
   margin: 0 10px;
   color: #c7c8d2;
 }
 
-.miga-de-pan strong {
+.breadcrumb strong {
   color: #38394d;
   font-weight: 600;
 }
@@ -1299,7 +1299,7 @@ footer span {
 /* Tipografía más cómoda en pantalla normal, con énfasis en listas y formularios. */
 .item-nav { font-size: 13px; }
 .etiqueta-nav { font-size: 10px; }
-.miga-de-pan { font-size: 12px; }
+.breadcrumb { font-size: 12px; }
 .estado { font-size: 12px; }
 .subtitulo-superior { font-size: 10px; }
 h1 { font-size: 29px; }

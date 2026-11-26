@@ -1,3 +1,4 @@
+// Esquema de cada pantalla: entidad, campos editables y columnas visibles.
 const pages = {
   socios: {
     entity: 'clientes', title: 'Socios', subtitle: 'Administrá los datos y el estado de tus socios.',
@@ -64,6 +65,7 @@ const pages = {
   },
 };
 
+// Funciones comunes para mostrar datos y calcular fechas de formularios.
 const escapeValue = (value) => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const today = () => {
   const date = new Date();
@@ -85,11 +87,12 @@ const addOneMonth = value => {
 };
 let config, records = [], refs = {};
 
+// Prepara la pantalla elegida y conecta sus controles al código de gestión.
 document.addEventListener('DOMContentLoaded', async () => {
   const key = document.body.dataset.section;
   config = pages[key];
   if (!config) return;
-  document.title = `Pulse Gym | ${config.title}`;
+  document.title = `OKTUBRE | ${config.title}`;
   document.querySelector('#page-title').textContent = config.title;
   document.querySelector('#page-subtitle').textContent = config.subtitle;
   document.querySelector('#breadcrumb').textContent = config.title;
@@ -109,6 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (location.hash === '#nuevo') openForm();
 });
 
+// Carga los registros y las listas auxiliares que usan los formularios.
 async function loadPage() {
   setStatus('Cargando…');
   try {
@@ -135,6 +139,7 @@ function fieldValue(field, value) {
   return value || '—';
 }
 
+// Filtra y dibuja la tabla según la configuración de la sección activa.
 function renderRows() {
   const query = (document.querySelector('#search').value || '').trim().toLocaleLowerCase('es');
   const filtered = records.filter(row => config.columns.some(([name]) => {
@@ -148,6 +153,7 @@ function renderRows() {
 
 function primaryKey(entity) { return ({clientes:'id_cliente',empleados:'id_empleado',planes:'id_plan',clases:'id_clase',contrataciones:'id_contratacion',pagos:'id_pago',metodos_pago:'id_metodo_pago',inscripciones_asistencias:'id_inscripcion'})[entity]; }
 
+// Genera el formulario para crear o modificar un registro.
 function openForm(row = null) {
   const form = document.querySelector('#record-form');
   form.dataset.id = row ? row[primaryKey(config.entity)] : '';
@@ -437,6 +443,7 @@ function setupPaymentAmountValidation() {
 
 function closeForm() { document.querySelector('#record-dialog').close(); }
 
+// Valida el formulario y envía los cambios a la API.
 async function saveRecord(event) {
   event.preventDefault();
   const form = event.currentTarget;
@@ -479,6 +486,7 @@ function showToast(message, isError = false) {
   clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.hidden = true, 4500);
 }
 function setStatus(text) { const el = document.querySelector('.estado'); if (el) el.innerHTML = `<i></i>${escapeValue(text)}`; }
+// Descarga los registros actuales como un archivo CSV.
 function exportCsv() {
   const rows = [config.columns.map(([,label]) => label), ...records.map(row => config.columns.map(([name]) => fieldValue(config.fields.find(x=>x.name===name)||{name},row[name])))];
   const csv = rows.map(row => row.map(value => `"${String(value??'').replaceAll('"','""')}"`).join(';')).join('\r\n');

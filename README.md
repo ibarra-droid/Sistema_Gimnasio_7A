@@ -12,6 +12,13 @@ Requisitos: Apache, MySQL/MariaDB y PHP con PDO MySQL habilitado (XAMPP incluye 
 4. Revisá `api/config.php`. Por defecto usa `127.0.0.1`, usuario `root`, clave vacía y base `ingresos_gim`. Podés configurar `GIMNASIO_DB_HOST`, `GIMNASIO_DB_NAME`, `GIMNASIO_DB_USER` y `GIMNASIO_DB_PASS` en el entorno de PHP para reemplazar esos valores.
 5. Abrí `http://localhost/Sistema_Gimnasio_7A-main/`. No abras `index.html` como archivo local; PHP y `fetch()` necesitan Apache.
 
+## Estructura del código
+
+- `index.html` y `styles.css`: panel inicial y estilos compartidos.
+- `js/api.js`: cliente de la API y funciones del panel principal.
+- `html/gestion.php` y `html/panel.js`: pantallas de gestión reutilizables y su lógica.
+- `api/api.php` y `api/config.php`: endpoints y conexión a la base de datos.
+- `ingresos_gim.sql`: estructura y datos de ejemplo de la base.
 ## Secciones
 
 - Inicio: indicadores, actividad reciente, ingresos mensuales y vencimientos.
